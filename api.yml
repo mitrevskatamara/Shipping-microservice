@@ -1,0 +1,41 @@
+swagger: '2.0'
+info:
+  title: Shipping MC
+  version: "0.1"
+  description: Shipping Microservice
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: "/api"
+paths:
+  /create_order/:
+    post:
+      tags: [ Order ]
+      operationId: app.create_order
+      parameters:
+        - $ref: '#/parameters/createorder_body'
+      responses:
+        200:
+          description: Return status
+        409:
+          description: Already exists
+parameters:
+  createorder_body:
+    name: createorder_body
+    description: Creating an order
+    in: body
+    schema:
+      required:
+        - user_id
+        - delivery_time
+        - priority
+      properties:
+        user_id:
+          type: integer
+        delivery_time:
+          type: string
+        priority:
+          type: boolean
+
+
