@@ -35,10 +35,27 @@ def find_user_order(user_id):
     else:
         return {'message':'error not found'}, 400
 
-#def change_state(order_id, order_body,):
+def edit_order(id, createorder_body):
+    order = db.session.query(Order).filter_by(id=id).first()
+    if not order:
+        return {'error': '{} not found'.format(id)}, 404
 
-    #order = Order.query.filter_by(order_id=id).first()
+    order.note = createorder_body['note']
+    order.courier_assigned = createorder_body['courier_assigned']
+    order.priority = createorder_body['priority']
+    order.order_state = createorder_body['order_state']
+    order.delivery_time = createorder_body['delivery_time']
+    order.user_id = createorder_body['user_id']
 
+    db.session.commit()
+
+    return {'id': order.id,
+            'note': order.note,
+            'courier_assigned': order.courier_assigned,
+            'priority': order.priority,
+            'order_state': order.order_state,
+            'delivery_time': order.delivery_time,
+            'user_id': order.user_id}
 
 
 

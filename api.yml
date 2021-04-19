@@ -45,6 +45,20 @@ paths:
         404:
           description: Does not exist
 
+    /order/change/{order_id}:
+      get:
+        tags: [ Order ]
+        operationId: app.edit_order
+        parametars:
+          - $ref: '#/parameters/order_id'
+          - $ref: '#/parameters/courier_body'
+        responses:
+          200:
+            description: return order
+          404:
+            description: not found
+
+
 parameters:
   createorder_body:
     name: createorder_body
