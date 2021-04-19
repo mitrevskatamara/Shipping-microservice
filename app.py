@@ -22,6 +22,25 @@ def add_courier(courier_body):
         'courier_id': new_courier.id, 'courier_name': new_courier.name,
         'courier_location': new_courier.location}
 
+def find_user_order(user_id):
+    order = Order.query.filter_by(user_id=user_id).all()
+    if order:
+        return {
+            'user_id' : order.user_id,
+            'order_state' : order.order_state,
+            'note' : order.note,
+            'delivery_time' : order.delivery_time,
+            'courier_assigned' : order.courier_assigned
+        }
+    else:
+        return {'message':'error not found'}, 400
+
+#def change_state(order_id, order_body,):
+
+    #order = Order.query.filter_by(order_id=id).first()
+
+
+
 
 
 

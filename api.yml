@@ -33,6 +33,18 @@ paths:
         409:
           description: Already exists
 
+  /order/user/{user_id}:
+    get:
+      tags: [ Order ]
+      operationId: app.find_user_order
+      parameters:
+        - $ref: '#/parameters/user_id'
+      responses:
+        200:
+          description: return order
+        404:
+          description: Does not exist
+
 parameters:
   createorder_body:
     name: createorder_body
@@ -50,6 +62,20 @@ parameters:
           type: string
         priority:
           type: boolean
+
+  user_id:
+    name: user_id
+    description: User identification
+    in: path
+    type: integer
+    required: true
+
+  order_id:
+    name: order_id
+    description: Order identification
+    in: path
+    type: integer
+    required: true
 
 
   courier_body:
