@@ -20,6 +20,19 @@ paths:
           description: Return status
         409:
           description: Already exists
+
+  /add_courier/:
+    post:
+      tags: [ Courier ]
+      operationId: app.add_courier
+      parameters:
+        - $ref: '#/parameters/courier_body'
+      responses:
+        200:
+          description: Courier added
+        409:
+          description: Already exists
+
 parameters:
   createorder_body:
     name: createorder_body
@@ -39,3 +52,19 @@ parameters:
           type: boolean
 
 
+  courier_body:
+    name: courier_body
+    description: Input for courier
+    in: body
+    schema:
+      required:
+        - id
+        - name
+        - location
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        location:
+          type: string
