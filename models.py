@@ -22,8 +22,8 @@ class Order(db.Model):
     note = db.column(db.String)
     courier_assigned = db.Column(db.Integer, nullable=False)
     priority = db.Column(db.Boolean, nullable=False)
-    order_state = db.Column(db.Enum(OrderState), nullable=False)
-    delivery_time = db.Column(db.DateTime, nullable=False)
+    order_state = db.Column(db.Enum(OrderState))
+    delivery_time = db.Column(db.Date)
     user_id = db.Column(db.Integer, nullable=False)
 
 
