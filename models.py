@@ -12,13 +12,13 @@ class OrderState(enum.Enum):
 
 
 class Courier(db.Model):
-    courierId = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     location = db.Column(db.String, nullable=False)
 
 
 class Order(db.Model):
-    orderId = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String)
     courier_assigned = db.Column(db.Integer, nullable=False)
     priority = db.Column(db.Boolean, nullable=False)

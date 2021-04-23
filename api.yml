@@ -127,11 +127,11 @@ parameters:
     in: body
     schema:
       required:
-        - courierId
+        - id
         - name
         - location
       properties:
-        courierId:
+        id:
           type: integer
         name:
           type: string

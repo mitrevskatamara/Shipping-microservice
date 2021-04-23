@@ -2,10 +2,12 @@ import connexion
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from order import *
+from utilities import validate_request, has_role
 
 
+@has_role(['shipping_admin','shopping_cart'])
 def create_order(createorder_body):
-    new_order = Order(orderId=createorder_body['orderId'],description=createorder_body['description'],
+    new_order = Order(id=createorder_body['orderId'],description=createorder_body['description'],
                       courier_assigned = createorder_body['courier_assigned'],
                       priority=createorder_body['priority'],
                       order_state=createorder_body['order_state'],
@@ -17,7 +19,7 @@ def create_order(createorder_body):
 
 
 def add_courier(courier_body):
-    new_courier = Courier(courierId=courier_body['courierId'], name=courier_body['name'],
+    new_courier = Courier(id=courier_body['id'], name=courier_body['name'],
                           location=courier_body['location'])
     db.session.add(new_courier)
     db.session.commit()
@@ -82,6 +84,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 connexion_app.add_api("api.yml")
+
+JWT_SECRET = 'MY JWT SECRET'
 
 from models import Order, Courier
 
