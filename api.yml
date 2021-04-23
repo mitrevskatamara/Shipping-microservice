@@ -29,68 +29,97 @@ paths:
         - $ref: '#/parameters/courier_body'
       responses:
         200:
-          description: Courier added
+          description: Return status
         409:
           description: Already exists
 
-  /order/user/{user_id}:
+  /order/user/{userId}:
     get:
       tags: [ Order ]
       operationId: app.find_user_order
       parameters:
-        - $ref: '#/parameters/user_id'
+        - $ref: '#/parameters/userId'
       responses:
         200:
-          description: return order
+          description: Return order
         404:
           description: Does not exist
 
-    /order/change/{order_id}:
-      get:
-        tags: [ Order ]
-        operationId: app.edit_order
-        parametars:
-          - $ref: '#/parameters/order_id'
-          - $ref: '#/parameters/courier_body'
-        responses:
-          200:
-            description: return order
-          404:
-            description: not found
+  /orderEdit/{orderId}:
+    put:
+      tags: [ Order ]
+      operationId: app.edit_order
+      parameters:
+        - $ref: '#/parameters/orderId'
+        - $ref: '#/parameters/createorder_body'
+      responses:
+        200:
+          description: Return order
+        404:
+          description: Not found
 
+  /courierEdit/{courierId}:
+    put:
+      tags: [ Courier ]
+      operationId: app.edit_courier
+      parameters:
+        - $ref: '#/parameters/courierId'
+        - $ref: '#/parameters/courier_body'
+      responses:
+        200:
+          description: Return courier
+        404:
+          description: Not found
 
 parameters:
+
+  userId:
+    name: userId
+    description: User identification
+    in: path
+    type: integer
+    required: true
+
+  orderId:
+    name: orderId
+    description: Order identification
+    in: path
+    type: integer
+    required: true
+
+  courierId:
+    name: courierId
+    description: Courier identifaction
+    in: path
+    type: integer
+    required: true
+
   createorder_body:
     name: createorder_body
     description: Creating an order
     in: body
     schema:
       required:
-        - user_id
+        - orderId
         - delivery_time
+        - courier_assigned
         - priority
+        - order_state
+        - description
+
       properties:
-        user_id:
+        orderId:
           type: integer
         delivery_time:
           type: string
         priority:
           type: boolean
-
-  user_id:
-    name: user_id
-    description: User identification
-    in: path
-    type: integer
-    required: true
-
-  order_id:
-    name: order_id
-    description: Order identification
-    in: path
-    type: integer
-    required: true
-
+        description:
+          type: string
+        courier_assigned:
+          type: integer
+        order_state:
+          type: string
 
   courier_body:
     name: courier_body
@@ -98,11 +127,11 @@ parameters:
     in: body
     schema:
       required:
-        - id
+        - courierId
         - name
         - location
       properties:
-        id:
+        courierId:
           type: integer
         name:
           type: string

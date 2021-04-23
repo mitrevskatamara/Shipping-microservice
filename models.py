@@ -12,18 +12,17 @@ class OrderState(enum.Enum):
 
 
 class Courier(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False)
-    location = db.Column(db.String(100), nullable=False)
+    courierId = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    location = db.Column(db.String, nullable=False)
 
 
 class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    note = db.column(db.String)
+    orderId = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String)
     courier_assigned = db.Column(db.Integer, nullable=False)
     priority = db.Column(db.Boolean, nullable=False)
     order_state = db.Column(db.Enum(OrderState))
-    delivery_time = db.Column(db.Date)
-    user_id = db.Column(db.Integer, nullable=False)
+    delivery_time = db.Column(db.String)
 
 
