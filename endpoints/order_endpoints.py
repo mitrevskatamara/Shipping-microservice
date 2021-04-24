@@ -57,8 +57,19 @@ order_schema = CourierSchema()
 def list_orders():
     orders = db.session.query(Order).all()
     if not orders:
-        return {'error': '{} not found'.format(id)}, 404
+        return {'message':'error not found'}, 404
 
     for order in orders:
         return order_schema.dump(order)
 
+
+def delete_order(id):
+    order = db.session.query(Order).filter_by(id=id).first()
+
+    if order:
+        db.session.delete(order)
+        db.session.commit()
+
+        return {f'The order with {id} id is deleted!'}, 200
+    else:
+        return {'message':'error not found'}, 404

@@ -15,7 +15,6 @@ def add_courier(courier_body):
 
 
 def edit_courier(id, courier_body):
-
     courier = db.session.query(Courier).filter_by(id=id).first()
 
     if not courier:
@@ -23,15 +22,29 @@ def edit_courier(id, courier_body):
 
     courier.name = courier_body['name']
     courier.location = courier_body['location']
-
     db.session.commit()
 
     return result_courier(courier)
 
 
 def list_couriers():
-    response = {'message': None, 'bicycle_stores': None}
     couriers = db.session.query(Courier).all()
+    if not couriers:
+        return {'message':'error not found'}, 404
 
-    response['message'] = "Couriers were successfully found"
-    response['bicycle_stores'] = [courier_schema.dump(courier) for courier in couriers]
+    for courier in couriers:
+        return courier_schema.dump(courier)
+
+
+def delete_courier(id):
+    courier = db.session.query(Courier).filter_by(id=id).first()
+
+    if courier:
+        db.session.delete(courier)
+        db.session.commit()
+
+        return {f'The courier with {id} id is deleted!'}, 200
+    else:
+        return {'message':'error not found'}, 404
+
+

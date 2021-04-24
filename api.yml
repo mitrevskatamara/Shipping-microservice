@@ -9,7 +9,7 @@ produces:
   - application/json
 basePath: "/api"
 paths:
-  /create_order/:
+  /order/create:
     post:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.create_order
@@ -21,7 +21,7 @@ paths:
         409:
           description: Already exists
 
-  /add_courier/:
+  /courier/create:
     post:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.add_courier
@@ -45,7 +45,7 @@ paths:
         404:
           description: Does not exist
 
-  /orderEdit/{id}:
+  /order/edit/{id}:
     put:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.edit_order
@@ -58,7 +58,7 @@ paths:
         404:
           description: Not found
 
-  /courierEdit/{id}:
+  /courier/edit/{id}:
     put:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.edit_courier
@@ -91,10 +91,32 @@ paths:
         404:
           description: Does not exist
 
+  /order/delete/{id}:
+    delete:
+      tags: [ Order ]
+      operationId: endpoints.order_endpoints.delete_order
+      parameters:
+        - $ref: '#parameters/id'
+      responses:
+        200:
+          description: Order is deleted
+        404:
+          description: Not found
+
+  /courier/delete/{id}:
+    delete:
+      tags: [ Courier ]
+      operationId: endpoints.courier_endpoints.delete_courier
+      parameters:
+        - $ref: '#parameters/id'
+      responses:
+        200:
+          description: Courier is deleted
+        404:
+          description: Not found
 
 
 parameters:
-
   id:
     name: id
     description: User identification
