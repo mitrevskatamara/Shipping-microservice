@@ -7,12 +7,12 @@ class CourierSchema(Schema):
     location = fields.Str()
 
 
-schema = CourierSchema()
+schemaCourier = CourierSchema()
 
 
 def result_courier(courier):
     result = dict(id=courier.id, name=courier.name, location=courier.location)
-    return schema.dump(result)
+    return schemaCourier.dump(result)
 
 
 class OrderSchema(Schema):
@@ -24,7 +24,7 @@ class OrderSchema(Schema):
     delivery_time = fields.Str()
 
 
-schema = OrderSchema()
+schemaOrder = OrderSchema()
 
 
 def result_order(order):
@@ -32,4 +32,4 @@ def result_order(order):
                   courier_assigned= order.courier_assigned,
                   priority = order.priority, order_state = order.order_state,
                   delivery_time = order.delivery_time)
-    return schema.dump(result)
+    return schemaOrder.dump(result)

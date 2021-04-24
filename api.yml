@@ -12,7 +12,7 @@ paths:
   /create_order/:
     post:
       tags: [ Order ]
-      operationId: app.create_order
+      operationId: endpoints.order_endpoints.create_order
       parameters:
         - $ref: '#/parameters/createorder_body'
       responses:
@@ -24,7 +24,7 @@ paths:
   /add_courier/:
     post:
       tags: [ Courier ]
-      operationId: app.add_courier
+      operationId: endpoints.courier_endpoints.add_courier
       parameters:
         - $ref: '#/parameters/courier_body'
       responses:
@@ -33,24 +33,24 @@ paths:
         409:
           description: Already exists
 
-  /order/user/{userId}:
+  /order/user/{id}:
     get:
       tags: [ Order ]
-      operationId: app.find_user_order
+      operationId: endpoints.order_endpoints.find_user_order
       parameters:
-        - $ref: '#/parameters/userId'
+        - $ref: '#/parameters/id'
       responses:
         200:
           description: Return order
         404:
           description: Does not exist
 
-  /orderEdit/{orderId}:
+  /orderEdit/{id}:
     put:
       tags: [ Order ]
-      operationId: app.edit_order
+      operationId: endpoints.order_endpoints.edit_order
       parameters:
-        - $ref: '#/parameters/orderId'
+        - $ref: '#/parameters/id'
         - $ref: '#/parameters/createorder_body'
       responses:
         200:
@@ -58,12 +58,12 @@ paths:
         404:
           description: Not found
 
-  /courierEdit/{courierId}:
+  /courierEdit/{id}:
     put:
       tags: [ Courier ]
-      operationId: app.edit_courier
+      operationId: endpoints.courier_endpoints.edit_courier
       parameters:
-        - $ref: '#/parameters/courierId'
+        - $ref: '#/parameters/id'
         - $ref: '#/parameters/courier_body'
       responses:
         200:
@@ -71,25 +71,33 @@ paths:
         404:
           description: Not found
 
+  /courier/listall:
+    get:
+      tags: [ Courier ]
+      operationId: endpoints.courier_endpoints.list_couriers
+      responses:
+        200:
+          description: Return list of Couriers
+        404:
+          description: Does not exist
+
+  /order/listall:
+    get:
+      tags: [ Order ]
+      operationId: endpoints.order_endpoints.list_orders
+      responses:
+        200:
+          description: Return list of Couriers
+        404:
+          description: Does not exist
+
+
+
 parameters:
 
-  userId:
-    name: userId
+  id:
+    name: id
     description: User identification
-    in: path
-    type: integer
-    required: true
-
-  orderId:
-    name: orderId
-    description: Order identification
-    in: path
-    type: integer
-    required: true
-
-  courierId:
-    name: courierId
-    description: Courier identifaction
     in: path
     type: integer
     required: true
@@ -100,7 +108,7 @@ parameters:
     in: body
     schema:
       required:
-        - orderId
+        - id
         - delivery_time
         - courier_assigned
         - priority
@@ -108,7 +116,7 @@ parameters:
         - description
 
       properties:
-        orderId:
+        id:
           type: integer
         delivery_time:
           type: string

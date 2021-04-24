@@ -19,7 +19,6 @@ def validate_request(request_body):
     return tuple(invalid_parameters)
 
 
-
 def has_role(arg):
     def has_role_inner(fn):
         @wraps(fn)
