@@ -5,7 +5,7 @@ from order import *
 
 courier_schema = CourierSchema()
 
-
+@has_role('shipping_admin')
 def add_courier(courier_body):
     new_courier = Courier(id=courier_body['id'], name=courier_body['name'],
                           location=courier_body['location'])
@@ -13,7 +13,7 @@ def add_courier(courier_body):
     db.session.commit()
     return result_courier(new_courier)
 
-
+@has_role(['shipping_admin','shipping_courier'])
 def edit_courier(id, courier_body):
     courier = db.session.query(Courier).filter_by(id=id).first()
 
@@ -26,7 +26,7 @@ def edit_courier(id, courier_body):
 
     return result_courier(courier)
 
-
+@has_role('shipping_admin')
 def list_couriers():
     couriers = db.session.query(Courier).all()
     if not couriers:
@@ -35,7 +35,7 @@ def list_couriers():
     for courier in couriers:
         return courier_schema.dump(courier)
 
-
+@has_role('shipping_admin')
 def delete_courier(id):
     courier = db.session.query(Courier).filter_by(id=id).first()
 

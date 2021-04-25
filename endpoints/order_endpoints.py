@@ -3,7 +3,7 @@ from models import Order, OrderState
 from app import db
 from order import *
 
-
+@has_role(['shipping_user','shopping_cart'])
 def create_order(createorder_body):
     new_order = Order(id=createorder_body['id'], description=createorder_body['description'],
                       courier_assigned=createorder_body['courier_assigned'],
@@ -15,7 +15,7 @@ def create_order(createorder_body):
     db.session.commit()
     return result_order(new_order)
 
-
+@has_role(['shipping_admin','shipping_user',"shipping_courier"])
 def find_user_order(user_id):
     order = Order.query.filter_by(user_id=user_id).all()
     if order:
@@ -23,7 +23,7 @@ def find_user_order(user_id):
     else:
         return {'message':'error not found'}, 400
 
-
+@has_role(['shipping_user'])
 def edit_order(id, createorder_body):
     order = db.session.query(Order).filter_by(id=id).first()
     if not order:
@@ -39,7 +39,7 @@ def edit_order(id, createorder_body):
 
     return result_order(order)
 
-
+@has_role(['shipping_admin','shipping_courier'])
 def updateOrderState(id, state):
     order = db.session.query(Order).filter_by(id=id).first()
 
@@ -53,7 +53,7 @@ def updateOrderState(id, state):
 
 order_schema = CourierSchema()
 
-
+@has_role(['shipping_admin','shipping_courier'])
 def list_orders():
     orders = db.session.query(Order).all()
     if not orders:
@@ -62,7 +62,7 @@ def list_orders():
     for order in orders:
         return order_schema.dump(order)
 
-
+@has_role(['shipping_admin'])
 def delete_order(id):
     order = db.session.query(Order).filter_by(id=id).first()
 
