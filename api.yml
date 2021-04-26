@@ -153,26 +153,25 @@ parameters:
       required:
         - id
         - userId
-        - delivery_time
+        - description
         - courier_assigned
         - priority
         - order_state
-        - description
-
+        - delivery_time
       properties:
         id:
           type: integer
         userId:
           type: integer
-        delivery_time:
-          type: string
-        priority:
-          type: boolean
         description:
           type: string
         courier_assigned:
           type: integer
+        priority:
+          type: boolean
         order_state:
+          type: string
+        delivery_time:
           type: string
 
   courier_body:

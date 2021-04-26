@@ -1,17 +1,20 @@
-from utilities import has_role
+from utilities import has_role, validate_request
 from models import Order, OrderState
 from app import db
-from marshmallow_models import *
+from marshmallow_models import result_order, OrderSchema, schemaOrder
 
+orderschema = OrderSchema()
 
-#@has_role(['shipping_user', 'shopping_cart'])
-def create_order(createorder_body):
-    new_order = Order(id=createorder_body['id'], userId=createorder_body['userId'],description=createorder_body['description'],
-                      courier_assigned=createorder_body['courier_assigned'],
-                      priority=createorder_body['priority'],
-                      order_state=createorder_body['order_state'],
-                      delivery_time=createorder_body['delivery_time'],
-                      )
+@has_role(['shipping_user', 'shopping_cart'])
+def create_order(create_order_body):
+    new_order = Order(id=create_order_body['id'],
+                      userId=create_order_body['userId'],
+                      description=create_order_body['description'],
+                      courier_assigned=create_order_body['courier_assigned'],
+                      priority=create_order_body['priority'],
+                      order_state=create_order_body['order_state'],
+                      delivery_time=create_order_body['delivery_time'])
+
     db.session.add(new_order)
     db.session.commit()
     return result_order(new_order)
@@ -55,7 +58,7 @@ def updateorderstate(id, state):
     return result_order(order)
 
 
-orderschema = OrderSchema()
+
 
 
 @has_role(['shipping_admin', 'shipping_courier'])

@@ -29,8 +29,11 @@ schemaOrder = OrderSchema()
 
 
 def result_order(order):
-    result = dict(id=order.id,userId = order.userId ,description=order.description,
-                  courier_assigned= order.courier_assigned,
-                  priority = order.priority, order_state = order.order_state,
-                  delivery_time = order.delivery_time)
+    result = dict(id=order.id,
+                  userId=order.userId,
+                  description=order.description,
+                  courier_assigned=order.courier_assigned,
+                  priority=order.priority,
+                  order_state=order.order_state,
+                  delivery_time=order.delivery_time)
     return schemaOrder.dump(result)

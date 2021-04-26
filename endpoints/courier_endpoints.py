@@ -8,7 +8,8 @@ courier_schema = CourierSchema()
 
 @has_role('shipping_admin')
 def add_courier(courier_body):
-    new_courier = Courier(id=courier_body['id'], name=courier_body['name'],
+    new_courier = Courier(id=courier_body['id'],
+                          name=courier_body['name'],
                           location=courier_body['location'])
     db.session.add(new_courier)
     db.session.commit()
