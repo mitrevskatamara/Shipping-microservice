@@ -4,7 +4,7 @@ from app import db
 from marshmallow_models import *
 
 
-@has_role(['shipping_user', 'shopping_cart'])
+#@has_role(['shipping_user', 'shopping_cart'])
 def create_order(createorder_body):
     new_order = Order(id=createorder_body['id'], userId=createorder_body['userId'],description=createorder_body['description'],
                       courier_assigned=createorder_body['courier_assigned'],

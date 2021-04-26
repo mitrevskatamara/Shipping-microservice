@@ -17,6 +17,7 @@ def result_courier(courier):
 
 class OrderSchema(Schema):
     id = fields.Number()
+    userId = fields.Number()
     description = fields.Str()
     courier_assigned = fields.Number()
     priority = fields.Boolean()
@@ -28,7 +29,7 @@ schemaOrder = OrderSchema()
 
 
 def result_order(order):
-    result = dict(id=order.id, description=order.description,
+    result = dict(id=order.id,userId = order.userId ,description=order.description,
                   courier_assigned= order.courier_assigned,
                   priority = order.priority, order_state = order.order_state,
                   delivery_time = order.delivery_time)

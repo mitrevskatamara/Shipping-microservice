@@ -18,10 +18,12 @@ class Courier(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer)
     description = db.Column(db.String)
     courier_assigned = db.Column(db.Integer, nullable=False)
     priority = db.Column(db.Boolean, nullable=False)
     order_state = db.Column(db.Enum(OrderState))
     delivery_time = db.Column(db.String)
+
 
 
