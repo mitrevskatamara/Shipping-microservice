@@ -7,36 +7,39 @@ consumes:
   - application/json
 produces:
   - application/json
-basePath: "/api"
+basePath: "/api/shipping"
 paths:
   /order/create:
     post:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.create_order
+      summary: Creating an order
       parameters:
         - $ref: '#/parameters/createorder_body'
       responses:
         200:
-          description: Return status
+          description: The order was successfully created!
         409:
-          description: Already exists
+          description: The order already exists!
 
   /courier/create:
     post:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.add_courier
+      summary: Creating a courier
       parameters:
         - $ref: '#/parameters/courier_body'
       responses:
         200:
-          description: Return status
+          description: Courier was successfully created!
         409:
-          description: Already exists
+          description: Courier already exists!
 
   /order/user/{id}:
     get:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.find_user_order
+      summary: Finding user's order
       parameters:
         - $ref: '#/parameters/id'
       responses:
@@ -49,12 +52,13 @@ paths:
     put:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.edit_order
+      summary: Editing/updating an order
       parameters:
         - $ref: '#/parameters/id'
         - $ref: '#/parameters/createorder_body'
       responses:
         200:
-          description: Return order
+          description: The order was successfully edited!
         404:
           description: Not found
 
@@ -62,12 +66,13 @@ paths:
     put:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.edit_courier
+      summary: Updating courier's information
       parameters:
         - $ref: '#/parameters/id'
         - $ref: '#/parameters/courier_body'
       responses:
         200:
-          description: Return courier
+          description: Courier was successfully edited!
         404:
           description: Not found
 
@@ -75,6 +80,7 @@ paths:
     get:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.list_couriers
+      summary: Listing all couriers
       responses:
         200:
           description: Return list of Couriers
@@ -85,9 +91,10 @@ paths:
     get:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.list_orders
+      summary: Listing all orders
       responses:
         200:
-          description: Return list of Couriers
+          description: Return list of Orders
         404:
           description: Does not exist
 
@@ -95,11 +102,12 @@ paths:
     delete:
       tags: [ Order ]
       operationId: endpoints.order_endpoints.delete_order
+      summary: Deleting an order
       parameters:
         - $ref: '#parameters/id'
       responses:
         200:
-          description: Order is deleted
+          description: Order is deleted successfully!
         404:
           description: Not found
 
@@ -107,19 +115,32 @@ paths:
     delete:
       tags: [ Courier ]
       operationId: endpoints.courier_endpoints.delete_courier
+      summary: Deleting a courier
       parameters:
         - $ref: '#parameters/id'
       responses:
         200:
-          description: Courier is deleted
+          description: Courier is deleted successfully!
         404:
           description: Not found
 
+  /updateorderstate/{id}:
+    put:
+      tags: [ Order ]
+      operationId: endpoints.order_endpoints.updateorderstate
+      summary: Updating order state
+      parameters:
+        - $ref: '#parameters/id'
+      responses:
+        200:
+          description: Order state is updated successfully!
+        404:
+          description: Error
 
 parameters:
   id:
     name: id
-    description: User identification
+    description: Identification
     in: path
     type: integer
     required: true
@@ -131,6 +152,7 @@ parameters:
     schema:
       required:
         - id
+        - userId
         - delivery_time
         - courier_assigned
         - priority
@@ -139,6 +161,8 @@ parameters:
 
       properties:
         id:
+          type: integer
+        userId:
           type: integer
         delivery_time:
           type: string
@@ -153,7 +177,7 @@ parameters:
 
   courier_body:
     name: courier_body
-    description: Input for courier
+    description: Creating a courier
     in: body
     schema:
       required:

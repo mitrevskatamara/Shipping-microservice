@@ -1,7 +1,6 @@
 from app import db
 import enum
 
-
 class OrderState(enum.Enum):
     Approved = 1
     Accepted = 2
