@@ -12,7 +12,7 @@ paths:
   /order/create:
     post:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.create_order
+      operationId: app.create_order
       summary: Creating an order
       parameters:
         - $ref: '#/parameters/createorder_body'
@@ -25,7 +25,7 @@ paths:
   /courier/create:
     post:
       tags: [ Courier ]
-      operationId: endpoints.courier_endpoints.add_courier
+      operationId: app.add_courier
       summary: Creating a courier
       parameters:
         - $ref: '#/parameters/courier_body'
@@ -38,7 +38,7 @@ paths:
   /order/user/{id}:
     get:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.find_user_order
+      operationId: app.find_user_order
       summary: Finding user's order
       parameters:
         - $ref: '#/parameters/id'
@@ -51,7 +51,7 @@ paths:
   /order/edit/{id}:
     put:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.edit_order
+      operationId: app.edit_order
       summary: Editing/updating an order
       parameters:
         - $ref: '#/parameters/id'
@@ -65,7 +65,7 @@ paths:
   /courier/edit/{id}:
     put:
       tags: [ Courier ]
-      operationId: endpoints.courier_endpoints.edit_courier
+      operationId: app.edit_courier
       summary: Updating courier's information
       parameters:
         - $ref: '#/parameters/id'
@@ -79,7 +79,7 @@ paths:
   /courier/listall:
     get:
       tags: [ Courier ]
-      operationId: endpoints.courier_endpoints.list_couriers
+      operationId: app.list_couriers
       summary: Listing all couriers
       responses:
         200:
@@ -90,7 +90,7 @@ paths:
   /order/listall:
     get:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.list_orders
+      operationId: app.list_orders
       summary: Listing all orders
       responses:
         200:
@@ -101,7 +101,7 @@ paths:
   /order/delete/{id}:
     delete:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.delete_order
+      operationId: app.delete_order
       summary: Deleting an order
       parameters:
         - $ref: '#parameters/id'
@@ -114,7 +114,7 @@ paths:
   /courier/delete/{id}:
     delete:
       tags: [ Courier ]
-      operationId: endpoints.courier_endpoints.delete_courier
+      operationId: app.delete_courier
       summary: Deleting a courier
       parameters:
         - $ref: '#parameters/id'
@@ -127,7 +127,7 @@ paths:
   /updateorderstate/{id}:
     put:
       tags: [ Order ]
-      operationId: endpoints.order_endpoints.updateorderstate
+      operationId: app.updateorderstate
       summary: Updating order state
       parameters:
         - $ref: '#parameters/id'

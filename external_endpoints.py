@@ -5,6 +5,7 @@ location_ms_url = 'http://localhost:5001/api/locations'
 user_ms_url = 'http://localhost:5002/api'
 payments_ms_url = 'http://localhost:5004/api'
 
+
 # USER MICROSERVICE
 def get_all_users_details():
     response = requests.get(user_ms_url + 'user/all')
