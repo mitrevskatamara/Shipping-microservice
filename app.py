@@ -5,11 +5,16 @@ import jwt
 from functools import wraps
 from flask import request, abort
 from marshmallow_models import *
-from consul import Consul, Check
-import socket
+
+# from consul_functions import register_to_consul
 
 
 JWT_SECRET = 'MY JWT SECRET'
+
+# consul_port = 8500
+# service_name = "shipping"
+# service_port = 5000
+
 
 connexion_app = connexion.App(__name__, specification_dir="./")
 app = connexion_app.app
@@ -17,7 +22,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 
 
 ### JWT
@@ -199,7 +203,10 @@ def delete_order(id):
 
 connexion_app.add_api("api.yml")
 
+# register_to_consul()
+
 import models
+
 
 if __name__ == "__main__":
     connexion_app.run(host='0.0.0.0', port=5000, debug=True)
