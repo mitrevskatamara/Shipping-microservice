@@ -6,7 +6,7 @@ from functools import wraps
 from flask import request, abort
 from marshmallow_models import *
 
-# from consul_functions import register_to_consul
+from consul_functions import get_host_name_IP, get_consul_service, register_to_consul
 
 
 JWT_SECRET = 'MY JWT SECRET'
@@ -203,7 +203,7 @@ def delete_order(id):
 
 connexion_app.add_api("api.yml")
 
-# register_to_consul()
+register_to_consul()
 
 import models
 
